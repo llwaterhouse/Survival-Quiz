@@ -1,4 +1,4 @@
-var wordBlank = document.querySelector('.word-blanks');
+
 var win = document.querySelector('.win');
 var lose = document.querySelector('.lose');
 var timerElement = document.querySelector('.timer-count');
@@ -13,12 +13,12 @@ var questionAnswerBox = document.querySelector('#q-a-box');
 var gameOverBox = document.querySelector('#game-over-box');
 var submitInitBtnEl = document.querySelector('#submitInitBtn');
 var initialsEl = document.querySelector('#initials');
+var viewScoresBtnEl = document.querySelector(".view-scores-button");
+//var quizBtn = document.querySelector(".quiz-button");
 
-// var chosenWord = '';
-// var numBlanks = 0;
-// var winCounter = 0;
-// var loseCounter = 0;
-var isWin = false;
+
+
+
 var timerInt; // saved timer interval;
 var timerCount; // how much time is left in seconds
 var currentQuestionInd = 0;
@@ -99,7 +99,7 @@ function startGame() {
 
 // The winGame function is called when the win condition is met
 function winGame() {
-	wordBlank.textContent = 'YOU WON!!!🏆 ';
+
 	winCounter++;
 	startButton.disabled = false;
 	setWins();
@@ -134,15 +134,16 @@ function startTimer() {
 	// Sets timer
 	timerInt = setInterval(function() {
 		timerCount--;
+		console.log("timer just decremented " + timerCount);
 		timerElement.textContent = timerCount;
-		if (timerCount >= 0) {
-			// Tests if win condition is met
-			if (isWin && timerCount > 0) {
-				// Clears interval and stops timer
-				clearInterval(timerInt);
-				winGame();
-			}
-		}
+		// if (timerCount >= 0) {
+		// 	// Tests if win condition is met
+		// 	if (isWin && timerCount > 0) {
+		// 		// Clears interval and stops timer
+		// 		clearInterval(timerInt);
+		// 		winGame();
+		// 	}
+		// }
 		// Tests if time has run out
 		if (timerCount === 0) {
 			// Clears interval
@@ -189,13 +190,6 @@ function getlosses() {
 	lose.textContent = loseCounter;
 }
 
-function checkWin() {
-	// If the word equals the blankLetters array when converted to string, set isWin to true
-	if (chosenWord === blanksLetters.join('')) {
-		// This value is used in the timer function to test if win condition is met
-		isWin = true;
-	}
-}
 
 // Attach event listener to start button to call startGame function on click
 startButton.addEventListener('click', startGame);
@@ -249,8 +243,40 @@ option1El.addEventListener('click', choose1);
 option2El.addEventListener('click', choose2);
 option3El.addEventListener('click', choose3);
 
-// Attach event listener to save initials and score once game is over
+// function that switches to  Scores page and loads all saved scores
+function showScores() {
+	console.log("in Show scores");
+	// build list of scores
+	var savedScores = localStorage.getItem('Survival-Quiz-Scores');
+	var savedScoresArray;
+	// Read saved scores from local storage or create new array
+	if (savedScores === null) {
+		savedScoresArray = [];
+	} else {
+		savedScoresArray = JSON.parse(savedScores);
+	}
+	// Add <li>'s to show scores
 
+	var li;
+	var parentOl = document.querySelector(".scores-list");
+console.log("savedScoresArraylen " + savedScoresArray.length);
+	for (var i=0; i< savedScoresArray.length; i++) {
+		console.log("savedScore: " + savedScoresArray[i].userInitials + " " + savedScoresArray[i].userScore);
+
+
+		li = document.createElement('li');
+		parentOl.appendChild(li);
+
+		li.innerHTML = " " + savedScoresArray[i].userInitials + ": " + savedScoresArray[i].userScore;
+
+	}
+
+	// Display score page
+
+}
+
+// saves initials and score of user in local storage and then
+// brings user to page that displays all of them.
 function saveScore(event) {
 	event.preventDefault();
 	if (initialsEl.value === '') {
@@ -282,25 +308,42 @@ function saveScore(event) {
 	// Must turn array into string in order to add to local storage
 	var savedScoresString = JSON.stringify(savedScoresArray);
 	localStorage.setItem("Survival-Quiz-Scores", savedScoresString);
-
+	// Bring user to Scores Page
+	showScores();
 }
 
+// Attach event listener to save initials and score once game is over
 
 submitInitBtnEl.addEventListener('click', saveScore);
 
 // Calls init() so that it fires when page opened
 init();
 
-// Bonus: Add reset button
-var resetButton = document.querySelector('.reset-button');
 
-function resetGame() {
-	// Resets win and loss counts
-	winCounter = 0;
-	loseCounter = 0;
-	// Renders win and loss counts and sets them into client storage
-	setWins();
-	setLosses();
+
+
+//quizBtn.addEventListener('click', toQuizPage);
+
+function clearScores() {
+console.log("in clear scores")
+// remove local storage
+
+//display page again
 }
+
+//clearBtn.addEventListener("click", clearScores);
+
+
+// Bonus: Add reset button
+// var resetButton = document.querySelector('.reset-button');
+
+// function resetGame() {
+// 	// Resets win and loss counts
+// 	winCounter = 0;
+// 	loseCounter = 0;
+// 	// Renders win and loss counts and sets them into client storage
+// 	setWins();
+// 	setLosses();
+// }
 // Attaches event listener to button
-resetButton.addEventListener('click', resetGame);
+// resetButton.addEventListener('click', resetGame);

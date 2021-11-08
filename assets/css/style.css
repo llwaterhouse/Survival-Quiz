@@ -17,10 +17,10 @@ body {
   background: linear-gradient(0deg, rgba(19,41,61,1) 0%, rgba(237,245,249,1) 63%);
 }
 
-.reset-button {
-  font-size: 16px;
+.view-scores-button {
+  font-size: 14px;
   height: 30px;
-  line-height: 8px;
+ line-height: 12px; 
   margin-top: 20px;
 }
 
