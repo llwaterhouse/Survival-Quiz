@@ -11,10 +11,13 @@ var option3El = document.getElementById('option3');
 var feedbackP = document.getElementById('feedbackP');
 var questionAnswerBox = document.querySelector('#q-a-box');
 var gameOverBox = document.querySelector('#game-over-box');
-var chosenWord = '';
-var numBlanks = 0;
-var winCounter = 0;
-var loseCounter = 0;
+var submitInitBtnEl = document.querySelector('#submitInitBtn');
+var initialsEl = document.querySelector('#initials');
+
+// var chosenWord = '';
+// var numBlanks = 0;
+// var winCounter = 0;
+// var loseCounter = 0;
 var isWin = false;
 var timerInt; // saved timer interval;
 var timerCount; // how much time is left in seconds
@@ -47,9 +50,8 @@ var questions = [
 function init() {
 	getWins();
 	getlosses();
-	var timerText = document.querySelector(".timer");
-	timerText.style.color = "grey";
-
+	var timerText = document.querySelector('.timer');
+	timerText.style.color = 'grey';
 }
 
 function showQuestion() {
@@ -67,33 +69,32 @@ function showQuestion() {
 }
 // if state = true, make GameOver box visible, else make QuestionAnswer Box visible
 function turnGameOverBoxOn(state) {
-	questionAnswerBox.style.visibility = "visible";
+	questionAnswerBox.style.visibility = 'visible';
 	if (state) {
-		questionAnswerBox.setAttribute("class", "hide");
-		gameOverBox.removeAttribute("class");
-
+		questionAnswerBox.setAttribute('class', 'hide');
+		gameOverBox.removeAttribute('class');
 	} else {
-		questionAnswerBox.removeAttribute("class")
-		gameOverBox.setAttribute("class", "hide");
+		questionAnswerBox.removeAttribute('class');
+		gameOverBox.setAttribute('class', 'hide');
 	}
 }
 
 // The startGame function is called when the start button is clicked
 function startGame() {
+	console.log("in start Game");
 	isWin = false;
-	var timerCountEl = document.querySelector(".timer-count");
+	var timerCountEl = document.querySelector('.timer-count');
 	timerCount = SECONDS_PER_GAME;
 	timerCountEl.innerHTML = timerCount;
 
 	// Prevents start button from being clicked when round is in progress
 	startButton.disabled = true;
 	startButton.style.color = 'grey'; //ToDo change color back to black when game ends.
-	// Have question div show up and game-over container gone */
+	// Have question div show up and game-over container hide */
 	turnGameOverBoxOn(false);
 	startTimer();
 	currentQuestionInd = 0;
 	showQuestion();
-
 }
 
 // The winGame function is called when the win condition is met
@@ -107,27 +108,29 @@ function winGame() {
 // The loseGame function is called when timer reaches 0
 function loseGame() {
 	// update Score Text
-	var yourScoreEl = document.getElementById("your-score");
-	console.log("timer count: ", timerCount);
-	yourScoreEl.innerHTML = "Your Final Score Is " + timerCount + ".";
+	var yourScoreEl = document.getElementById('your-score');
+	console.log('timer count: ', timerCount);
+	yourScoreEl.innerHTML = 'Your Final Score Is ' + timerCount + '.';
 
-	// 
 	turnGameOverBoxOn(true);
+	// save initials to local storage
+	// TODo Show high scores???
 
-	loseCounter++;
+	// loseCounter++;
 	// re-enable Start button
 	startButton.disabled = false;
 	startButton.style.color = '#13293d';
 
+	//
 
-	setLosses();
+	// setLosses();
 }
 
 // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
 function startTimer() {
 	// make text look enabled
-	var timerText = document.querySelector(".timer");
-	timerText.style.color = "white";
+	var timerText = document.querySelector('.timer');
+	timerText.style.color = 'white';
 	// Sets timer
 	timerInt = setInterval(function() {
 		timerCount--;
@@ -148,7 +151,6 @@ function startTimer() {
 		}
 	}, 1000);
 }
-
 
 // Updates win count on screen and sets win count to client storage
 function setWins() {
@@ -204,47 +206,40 @@ function checkAnswer(num) {
 	var curQuestionEl = questions[currentQuestionInd];
 	if (num == curQuestionEl.answer) {
 		// TODO try a parseInt to be correct
-		//They chose the correct answer!  Give them feedback and load the next question.  
+		//They chose the correct answer!  Give them feedback and load the next question.
 
-		feedbackP.innerHTML = "Correct!!!";
-	}
-	else {
+		feedbackP.innerHTML = 'Correct!!!';
+	} else {
 		//They chose wrong answer.  Let them know and subtract 10 seconds from the timer.
-		feedbackP.innerHTML = "Wrong!  Ten seconds will be subtracted from the timer";
-		timerCount -=3; // TODO change to 10!;
+		feedbackP.innerHTML = 'Wrong!  Ten seconds will be subtracted from the timer';
+		timerCount -= 3; // TODO change to 10!;
+		timerElement.textContent = timerCount;
 		//TODO stringify
-
-
 	}
-		//TODO set timer to clear feedback and next question
+	//TODO set timer to clear feedback and next question
 	// see if there are anymore questions to ask
+	console.log('feedback: ' + feedbackP.innerHTML);
+	// TODO: Don't see last feedback!
 	currentQuestionInd++;
 	if (currentQuestionInd < questions.length) {
 		showQuestion();
-	}
-	else {
+	} else {
 		//there are no more questions, game is over
 		clearInterval(timerInt);
 		loseGame();
 	}
-
 }
 
-
 function choose0() {
-
 	checkAnswer(0);
 }
 function choose1() {
-
 	checkAnswer(1);
 }
 function choose2() {
-
 	checkAnswer(2);
 }
 function choose3() {
-
 	checkAnswer(3);
 }
 
@@ -253,6 +248,45 @@ option0El.addEventListener('click', choose0);
 option1El.addEventListener('click', choose1);
 option2El.addEventListener('click', choose2);
 option3El.addEventListener('click', choose3);
+
+// Attach event listener to save initials and score once game is over
+
+function saveScore(event) {
+	event.preventDefault();
+	if (initialsEl.value === '') {
+		alert('Initials cannot be blank'); 
+		return;
+	}
+
+	var savedScores = localStorage.getItem('Survival-Quiz-Scores');
+	var savedScoresArray;
+	// Read saved scores from local storage or create new array
+	if (savedScores === null) {
+		savedScoresArray = [];
+	} else {
+		savedScoresArray = JSON.parse(savedScores);
+	}
+	// push this score onto savedScoresArray and then save it in local storage
+
+	var userStorage = {
+		userInitials: initialsEl.value,
+		userScore: timerCount,
+	}
+
+	console.log ("saved Scores: " + savedScoresArray);
+
+	console.log ("newUser info: " + userStorage);
+
+	savedScoresArray.push(userStorage);
+
+	// Must turn array into string in order to add to local storage
+	var savedScoresString = JSON.stringify(savedScoresArray);
+	localStorage.setItem("Survival-Quiz-Scores", savedScoresString);
+
+}
+
+
+submitInitBtnEl.addEventListener('click', saveScore);
 
 // Calls init() so that it fires when page opened
 init();
