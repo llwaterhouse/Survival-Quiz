@@ -16,10 +16,11 @@ var numBlanks = 0;
 var winCounter = 0;
 var loseCounter = 0;
 var isWin = false;
-var timer;
-var timerCount;
-var currentQuestion = 0;
+var timerInt; // saved timer interval;
+var timerCount; // how much time is left in seconds
+var currentQuestionInd = 0;
 var questionAnswerState = true; // if questionAnswerState then question-answer box is visible, else game-over box is visible
+const SECONDS_PER_GAME = 15;
 
 // Arrays used to create blanks and letters on screen
 var lettersInChosenWord = [];
@@ -52,17 +53,17 @@ function init() {
 }
 
 function showQuestion() {
-	var curQuestion = questions[currentQuestion];
-	questionP.textContent = curQuestion.question;
+	var curQuestionEl = questions[currentQuestionInd];
+	questionP.textContent = curQuestionEl.question;
 
-	for (let i = 0; i < curQuestion.options.length; i++) {
+	for (let i = 0; i < curQuestionEl.options.length; i++) {
 		// set text for each option
 		curOption = document.getElementById('option' + i);
-		curOption.innerText = curQuestion.options[i];
+		curOption.innerText = curQuestionEl.options[i];
 	}
 
 	//Don't display feedback
-	feedbackP.innerHTML = '';
+	// feedbackP.innerHTML = '';
 }
 // if state = true, make GameOver box visible, else make QuestionAnswer Box visible
 function turnGameOverBoxOn(state) {
@@ -81,7 +82,8 @@ function turnGameOverBoxOn(state) {
 function startGame() {
 	isWin = false;
 	var timerCountEl = document.querySelector(".timer-count");
-	timerCount = parseInt(timerCountEl.innerHTML);
+	timerCount = SECONDS_PER_GAME;
+	timerCountEl.innerHTML = timerCount;
 
 	// Prevents start button from being clicked when round is in progress
 	startButton.disabled = true;
@@ -89,8 +91,9 @@ function startGame() {
 	// Have question div show up and game-over container gone */
 	turnGameOverBoxOn(false);
 	startTimer();
+	currentQuestionInd = 0;
 	showQuestion();
-	currentQuestion = 0;
+
 }
 
 // The winGame function is called when the win condition is met
@@ -103,11 +106,20 @@ function winGame() {
 
 // The loseGame function is called when timer reaches 0
 function loseGame() {
+	// update Score Text
+	var yourScoreEl = document.getElementById("your-score");
+	console.log("timer count: ", timerCount);
+	yourScoreEl.innerHTML = "Your Final Score Is " + timerCount + ".";
+
+	// 
 	turnGameOverBoxOn(true);
+
 	loseCounter++;
 	// re-enable Start button
 	startButton.disabled = false;
 	startButton.style.color = '#13293d';
+
+
 	setLosses();
 }
 
@@ -117,26 +129,25 @@ function startTimer() {
 	var timerText = document.querySelector(".timer");
 	timerText.style.color = "white";
 	// Sets timer
-	timer = setInterval(function() {
+	timerInt = setInterval(function() {
 		timerCount--;
 		timerElement.textContent = timerCount;
 		if (timerCount >= 0) {
 			// Tests if win condition is met
 			if (isWin && timerCount > 0) {
 				// Clears interval and stops timer
-				clearInterval(timer);
+				clearInterval(timerInt);
 				winGame();
 			}
 		}
 		// Tests if time has run out
 		if (timerCount === 0) {
 			// Clears interval
-			clearInterval(timer);
+			clearInterval(timerInt);
 			loseGame();
 		}
 	}, 1000);
 }
-
 
 
 // Updates win count on screen and sets win count to client storage
@@ -189,21 +200,51 @@ startButton.addEventListener('click', startGame);
 
 function checkAnswer(num) {
 	console.log('Chose answer: ' + num);
+	// See if the option user selected is the correct option
+	var curQuestionEl = questions[currentQuestionInd];
+	if (num == curQuestionEl.answer) {
+		// TODO try a parseInt to be correct
+		//They chose the correct answer!  Give them feedback and load the next question.  
+
+		feedbackP.innerHTML = "Correct!!!";
+	}
+	else {
+		//They chose wrong answer.  Let them know and subtract 10 seconds from the timer.
+		feedbackP.innerHTML = "Wrong!  Ten seconds will be subtracted from the timer";
+		timerCount -=3; // TODO change to 10!;
+		//TODO stringify
+
+
+	}
+		//TODO set timer to clear feedback and next question
+	// see if there are anymore questions to ask
+	currentQuestionInd++;
+	if (currentQuestionInd < questions.length) {
+		showQuestion();
+	}
+	else {
+		//there are no more questions, game is over
+		clearInterval(timerInt);
+		loseGame();
+	}
+
 }
+
+
 function choose0() {
-	console.log('Chose 0');
+
 	checkAnswer(0);
 }
 function choose1() {
-	console.log('Chose 1');
+
 	checkAnswer(1);
 }
 function choose2() {
-	console.log('Chose 2');
+
 	checkAnswer(2);
 }
 function choose3() {
-	console.log('Chose 3');
+
 	checkAnswer(3);
 }
 
