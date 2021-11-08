@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CSS Box Styling</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+</head>
+
+<body>
+  <header>
+    <div class="large-font">Could You Survive Alone in the Wilderness?</div>
+    <div class="small-font instructions">Try to answer the following wilderness survival questions within the time
+      limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!</div>
+    <button class="start-button">Start</button>
+  </header>
+
+  <main>
+    <section id = "q-a-box" >
+      <!-- either question-answer-feedback box is visible or game-over box is visible.  Never both -->
+      <div class="card question-answer-feedback">
+        <div>
+          <p id=questionP>Starter Q </p>
+        </div>
+        <div class="option-div">
+          <div>
+            <p id=option0 class="options">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui consequuntur rem
+              dolorem aperiam alias magnam?</p>
+          </div>
+          <div>
+            <p id=option1 class="options">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          </div>
+          <div>
+            <p id=option2 class="options">Option 2</p>
+          </div>
+          <div>
+            <p id=option3 class="options">Option 3</p>
+          </div>
+        </div>
+        <div>
+          <hr />
+          <p id=feedbackP> Correct!</p>
+        </div>
+      </div>
+
+    </section>
+<section id = "game-over-box" class = "hide">
+  <div class = "card game-over-container">
+    <!-- TODO center the game over text! -->
+    <p id="game-over-text">Game Over!!!</p> 
+    <p id = "your-score">Your Score Is</p>
+  </div>
+</section>
+    <section>
+      <div class="card results">
+        <div class="win-loss-container">
+          <div>
+            <h2>Wins: <span class="win">0 </span> </h2>
+            <h2>Losses: <span class="lose">0</span></h2>
+          </div>
+          <button class="reset-button">Reset Score</button>
+        </div>
+        <div class="card timer">
+          <div class="timer-text">
+            <div class="large-font timer-count">10</div>
+            <h3>seconds remaining</h3>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>
