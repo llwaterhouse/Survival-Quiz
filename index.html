@@ -2,9 +2,11 @@
 <html>
 
 <head>
-  <title>CSS Box Styling</title>
+  <title>Survival Quiz</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="shortcut icon" type="image/jpg" href="./assets/images/favicon-32x32.png" />
+  ...
   <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
 </head>
 
@@ -13,7 +15,11 @@
     <div class="large-font">Could You Survive Alone in the Wilderness?</div>
     <div class="small-font instructions">Try to answer the following wilderness survival questions within the time
       limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!</div>
-    <button class="start-button">Start</button>
+    <div class="button-container">
+      <button class="start-button">Start</button>
+      <button class="view-scores-button">View Scores</button>
+    </div>
+
   </header>
 
   <main>
@@ -22,8 +28,9 @@
       <div class="card question-answer-feedback">
         <div>
           <h1> Questions</h1>
-          <p id=questionP></p>
+
         </div>
+        <p id=questionP></p>
         <div class="option-div">
           <div>
             <p id=option0 class="options"></p>
@@ -45,7 +52,7 @@
       </div>
 
     </section>
-    <!-- TODO game over box not responsive in small widths -->
+    <!-- TODO game over box not responsive in small widths  Neither is q-a box-->
     <section id="game-over-box" class="hide">
       <div class="card game-over-container">
         <!-- TODO center the game over text! -->
@@ -68,8 +75,7 @@
           </div>
           <div class="win-loss-container">
 
-            <button class="view-scores-button">
-              View Scores</button>
+
           </div>
         </div>
       </div>
