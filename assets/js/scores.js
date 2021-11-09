@@ -19,11 +19,11 @@ var quizBtn = document.querySelector(".quiz-button");
 
 
 
-var timerInt; // saved timer interval;
-var timerCount; // how much time is left in seconds
-var currentQuestionInd = 0;
-var questionAnswerState = true; // if questionAnswerState then question-answer box is visible, else game-over box is visible
-const SECONDS_PER_GAME = 15;
+// var timerInt; // saved timer interval;
+// var timerCount; // how much time is left in seconds
+// var currentQuestionInd = 0;
+// var questionAnswerState = true; // if questionAnswerState then question-answer box is visible, else game-over box is visible
+// const SECONDS_PER_GAME = 15;
 
 
 

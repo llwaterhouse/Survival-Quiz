@@ -23,8 +23,6 @@ var currentQuestionInd = 0;
 var questionAnswerState = true; // if questionAnswerState then question-answer box is visible, else game-over box is visible
 const SECONDS_PER_GAME = 15;
 
-
-
 //questions the user will be asked with answers
 var questions = [
 	{
@@ -42,12 +40,12 @@ var questions = [
 // The init function is called when the page loads
 function init() {
 	 getWins();
-	 getlosses();
-	var timerText = document.querySelector('.timer');
+	getlosses();
+	 var timerText = document.querySelector('.timer');
 	timerText.style.color = 'grey';
+	 timerElement.textContent = SECONDS_PER_GAME;
 
-}
-
+// Shows the next question to the user
 function showQuestion() {
 	var curQuestionEl = questions[currentQuestionInd];
 	questionP.textContent = curQuestionEl.question;
@@ -61,6 +59,7 @@ function showQuestion() {
 	//Don't display feedback
 	// feedbackP.innerHTML = '';
 }
+
 // if state = true, make GameOver box visible, else make QuestionAnswer Box visible
 function turnGameOverBoxOn(state) {
 	questionAnswerBox.style.visibility = 'visible';
@@ -91,6 +90,7 @@ function startGame() {
 	showQuestion();
 }
 
+
 // The winGame function is called when the win condition is met
 function winGame() {
 
@@ -98,6 +98,7 @@ function winGame() {
 	startButton.disabled = false;
 	setWins();
 }
+
 
 // The loseGame function is called when timer reaches 0
 function loseGame() {
@@ -218,6 +219,7 @@ function checkAnswer(num) {
 	}
 }
 
+
 function choose0() {
 	checkAnswer(0);
 }
@@ -237,38 +239,6 @@ option0El.addEventListener('click', choose0);
 option1El.addEventListener('click', choose1);
 option2El.addEventListener('click', choose2);
 option3El.addEventListener('click', choose3);
-
-// function that switches to  Scores page and loads all saved scores
-// function showScores() {
-// 	console.log("in Show scores");
-// 	// build list of scores
-// 	var savedScores = localStorage.getItem('Survival-Quiz-Scores');
-// 	var savedScoresArray;
-// 	// Read saved scores from local storage or create new array
-// 	if (savedScores === null) {
-// 		savedScoresArray = [];
-// 	} else {
-// 		savedScoresArray = JSON.parse(savedScores);
-// 	}
-// 	// Add <li>'s to show scores
-
-// 	var li;
-// 	var parentOl = document.querySelector(".scores-list");
-// console.log("savedScoresArraylen " + savedScoresArray.length);
-// 	for (var i=0; i< savedScoresArray.length; i++) {
-// 		console.log("savedScore: " + savedScoresArray[i].userInitials + " " + savedScoresArray[i].userScore);
-
-
-// 		li = document.createElement('li');
-// 		parentOl.appendChild(li);
-
-// 		li.innerHTML = " " + savedScoresArray[i].userInitials + ": " + savedScoresArray[i].userScore;
-
-// 	}
-
-// 	// Display score page
-
-// }
 
 // saves initials and score of user in local storage and then
 // brings user to page that displays all of them.
@@ -312,11 +282,10 @@ function saveScore(event) {
 submitInitBtnEl.addEventListener('click', saveScore);
 
 // Calls init() so that it fires when page opened
-init();
+ init();
 
 
-
-viewScoresBtnEl.addEventListener("click", function() {
+ viewScoresBtnEl.addEventListener("click", function() {
 	console.log ("going to scores page");
 	window.location.replace('scores.html');
 } )
@@ -329,19 +298,3 @@ console.log("in clear scores")
 //display page again
 }
 
-//clearBtn.addEventListener("click", clearScores);
-
-
-// Bonus: Add reset button
-// var resetButton = document.querySelector('.reset-button');
-
-// function resetGame() {
-// 	// Resets win and loss counts
-// 	winCounter = 0;
-// 	loseCounter = 0;
-// 	// Renders win and loss counts and sets them into client storage
-// 	setWins();
-// 	setLosses();
-// }
-// Attaches event listener to button
-// resetButton.addEventListener('click', resetGame);
