@@ -45,6 +45,8 @@ function init() {
 	//  getlosses();
 	var timerText = document.querySelector('.timer');
 	timerText.style.color = 'grey';
+	questionAnswerBox.style.visibility = 'visible';
+	timerElement.textContent = SECONDS_PER_GAME.toString();
 
 }
 
@@ -103,21 +105,13 @@ function winGame() {
 function loseGame() {
 	// update Score Text
 	var yourScoreEl = document.getElementById('your-score');
-	console.log('timer count: ', timerCount);
 	yourScoreEl.innerHTML = 'Your Final Score Is ' + timerCount + '.';
 
 	turnGameOverBoxOn(true);
-	// save initials to local storage
-	// TODo Show high scores???
-
-	// loseCounter++;
 	// re-enable Start button
 	startButton.disabled = false;
 	startButton.style.color = '#13293d';
 
-	//
-
-	// setLosses();
 }
 
 // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
