@@ -41,8 +41,8 @@ var questions = [
 
 // The init function is called when the page loads
 function init() {
-	 getWins();
-	 getlosses();
+	//  getWins();
+	//  getlosses();
 	var timerText = document.querySelector('.timer');
 	timerText.style.color = 'grey';
 
