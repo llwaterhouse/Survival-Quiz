@@ -3,7 +3,7 @@ var win = document.querySelector('.win');
 var lose = document.querySelector('.lose');
 var timerElement = document.querySelector('.timer-count');
 var startButton = document.querySelector('.start-button');
-var questionP = document.getElementById('questionP');
+var questionP = document.getElementById('question-p');
 var option0El = document.getElementById('option0');
 var option1El = document.getElementById('option1');
 var option2El = document.getElementById('option2');
@@ -11,7 +11,7 @@ var option3El = document.getElementById('option3');
 var feedbackP = document.getElementById('feedbackP');
 var questionAnswerBox = document.querySelector('#q-a-box');
 var gameOverBox = document.querySelector('#game-over-box');
-var submitInitBtnEl = document.querySelector('#submitInitBtn');
+var submitInitBtnEl = document.querySelector('#save-button');
 var initialsEl = document.querySelector('#initials');
 var viewScoresBtnEl = document.querySelector(".view-scores-button");
 
@@ -21,11 +21,11 @@ var timerInt; // saved timer interval;
 var timerCount; // how much time is left in seconds
 var currentQuestionInd = 0;
 var questionAnswerState = true; // if questionAnswerState then question-answer box is visible, else game-over box is visible
-const SECONDS_PER_GAME = 150;
+const SECONDS_PER_GAME = 65;
 
 
 
-//questions the user will be asked with answers
+//questions the user will be asked with answers.  Indices of answers start with 0
 var questions = [
 	{
 		question: 'How many days can a person survive without water?',
@@ -42,7 +42,41 @@ var questions = [
 		options: [ "Take your cell phone with you", "Tell someone where you're going and when you're returning", "Take your dog with you", "Take a whistle with you" ],
 		answer: 1
 	},
-	
+	{
+		question: "In a survival scenario, you should avoid eating insects that ____",
+		options: [ "Have more than 6 legs", "Are brightly colored or pungent", "Have a hard shell", "Have stingers" ],
+		answer: 1
+	},
+	{
+		question: "Which symptom determines if you are SEVERELY dehydrated?",
+		options: [ "Dizziness", "Rapid heart beat","Vomiting and diarrhea",  "Dry mouth" ],
+		answer: 2
+	},
+	{
+		question: "Why should you try to avoid sleeping directly on the ground?",
+		options: [ "To keep from losing body heat", "To avoid bugs","To eliminate the risk of contracting disease",  "To avoid getting your clothes wet" ],
+		answer: 0
+	},
+	{
+		question: "Which of the following can kill you most quickly?",
+		options: [ "Dehydration", "Sun Exposure","Frostbite",  "Hypothermia" ],
+		answer: 3
+	},
+	{
+		question: "Insect larvae contains a lot of protein. Where are the best places to find insect eggs?",
+		options: [ "Moist areas under rocks and logs", "Animal Droppings","Attached to the insect",  "Dry river beds" ],
+		answer: 0
+	},
+	{
+		question: "If you are lost in the wilderness, what is the first rule of thumb?",
+		options: [ "Keep moving", "Make a weapon","Look for something to eat",  "Stay put" ],
+		answer: 3
+	},
+	{
+		question: "What is the best material for building a signal fire?",
+		options: [ "The driest wood you can find so it will burn well", "Dried animal dung","Green pine branches",  "Pine cones" ],
+		answer: 0
+	},
 ];
 
 // The init function is called when the page loads
