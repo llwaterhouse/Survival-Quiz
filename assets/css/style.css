@@ -22,6 +22,11 @@ body {
  line-height: 16px; 
 } 
 
+.hdr-button-container {
+display:flex;
+  justify-content:flex-end;
+  flex-direction:column;
+}
 .win-loss-container {
   display: flex;
   justify-content: space-between;
@@ -30,7 +35,8 @@ body {
 
 .button-container{
   display:flex;
-  justify-content:space-evenly
+
+  justify-content:space-evenly;
 }
 
 button {
@@ -103,7 +109,7 @@ section {
 }
 /* When game is over, this container shows up and q-a-f is invisible */
 .game-over-container {
-  width: 55vw;
+  /* width: 55vw; */
   height: 400px;
   display:flex;
   flex-direction: column;
@@ -127,7 +133,7 @@ section {
 
 .option-div {
   margin: 0 10% 2% 10%;
-  height: 40%;
+  height: 60%; /* 40% */
 }
 .options {
   color: var(--white);
@@ -164,6 +170,7 @@ section {
 
 .medium-font {
   font-size: 1.5em;
+  text-align:center;
 }
 .small-font {
   font-size:1.0em;
@@ -214,6 +221,11 @@ section {
     
   }
 
+  .save-button {
+    font-size: 12px;
+    width: 20ox;
+    
+  }
   .timer {
     height: 200px;
   }
