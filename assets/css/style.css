@@ -16,11 +16,16 @@ body {
   justify-content: flex-start;
   background: linear-gradient(0deg, rgba(19,41,61,1) 0%, rgba(237,245,249,1) 63%);
 }
-/* TODO can't get the font-size right! */
+
 .view-scores-button { 
   font-size: 1.75em;
  line-height: 16px; 
 } 
+
+/* Margin around the list of saved scores*/
+.scores-list {
+  margin:3%;
+}
 
 .hdr-button-container {
 display:flex;
@@ -69,7 +74,7 @@ header {
 .instructions{
   color: var(--grey);
   justify-content: space-evenly;
-  /* TODO reduce width */
+
 }
 
 main {
@@ -94,11 +99,8 @@ section {
   }
 
 .question-answer-feedback {
-  /* width: 55vw; */
   height: 400px;
-  /* display:flex;
-  flex-direction: column;
-  flex:1; */
+
 }
 .q-header {
   display:flex;
@@ -107,6 +109,7 @@ section {
   justify-content:space-between;
 
 }
+
 /* When game is over, this container shows up and q-a-f is invisible */
 .game-over-container {
   /* width: 55vw; */
@@ -124,30 +127,32 @@ section {
 
 #game-over-text {
   font-size: 2.5em;
-  
   }
 
 #your-score{
   font-size:2.0em;
 }
+/* container for list of answer choices */
 
 .option-div {
   margin: 0 10% 2% 10%;
-  height: 60%; /* 40% */
+  height: 40%;
 }
+
+/* answer choices*/
 .options {
   color: var(--white);
   font-size: 1.0em;
   background-color: var(--optionColor);
-  ;
-
 }
 
+/* Whether correct or incorrect */
 .feedback {
   color: var(--grey);
   height:10%;
 }
 
+/* what your results are */
 .results {
   width: 30vw;
   height: 400px;
@@ -185,12 +190,11 @@ section {
   text-align: center;
 }
 
-@media screen and (max-width: 1183px) {
+@media screen and (max-width: 2500px) {
   main {
     flex-direction: column;
   }
 
-  .word-guess,
   .results {
     width: 90vw;
   }
@@ -221,13 +225,17 @@ section {
     
   }
 
-  .save-button {
+  .save-button,
+  .quiz-button,
+  .clear-button {
     font-size: 12px;
     width: 20ox;
     
   }
-  .timer {
-    height: 200px;
+ 
+  .button-container {
+    flex-direction:column;
+    justify-content:center;
   }
  
 }
