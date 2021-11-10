@@ -21,7 +21,7 @@ var timerInt; // saved timer interval;
 var timerCount; // how much time is left in seconds
 var currentQuestionInd = 0;
 var questionAnswerState = true; // if questionAnswerState then question-answer box is visible, else game-over box is visible
-const SECONDS_PER_GAME = 15;
+const SECONDS_PER_GAME = 150;
 
 
 
@@ -36,7 +36,13 @@ var questions = [
 		question: "If you're lost and you come to a creek or river, which way should you go to get out?",
 		options: [ 'Across it', 'Upstream', 'Away from it', 'Downstream' ],
 		answer: 3
-	}
+	},
+	{
+		question: "Before leaving for a day hike or a camping trip, what is the most important thing you can do to ensure your safety?",
+		options: [ "Take your cell phone with you", "Tell someone where you're going and when you're returning", "Take your dog with you", "Take a whistle with you" ],
+		answer: 1
+	},
+	
 ];
 
 // The init function is called when the page loads
@@ -60,8 +66,6 @@ function showQuestion() {
 		curOption.innerText = curQuestionEl.options[i];
 	}
 
-	//Don't display feedback
-	// feedbackP.innerHTML = '';
 }
 // if state = true, make GameOver box visible, else make QuestionAnswer Box visible
 function turnGameOverBoxOn(state) {
@@ -77,11 +81,10 @@ function turnGameOverBoxOn(state) {
 
 // The startGame function is called when the start button is clicked
 function startGame() {
-	console.log("in start Game");
+
 	isWin = false;
 	var timerCountEl = document.querySelector('.timer-count');
 	timerCount = SECONDS_PER_GAME;
-	// timerCountEl.innerHTML = timerCount;
 
 	// Prevents start button from being clicked when round is in progress
 	startButton.disabled = true;
@@ -90,6 +93,8 @@ function startGame() {
 	turnGameOverBoxOn(false);
 	startTimer();
 	currentQuestionInd = 0;
+	// Erase any former feedback
+	feedbackP.textContent= "";
 	showQuestion();
 }
 
@@ -122,16 +127,9 @@ function startTimer() {
 	// Sets timer
 	timerInt = setInterval(function() {
 		timerCount--;
-		console.log("timer just decremented " + timerCount);
+
 		timerElement.textContent = timerCount;
-		// if (timerCount >= 0) {
-		// 	// Tests if win condition is met
-		// 	if (isWin && timerCount > 0) {
-		// 		// Clears interval and stops timer
-		// 		clearInterval(timerInt);
-		// 		winGame();
-		// 	}
-		// }
+
 		// Tests if time has run out
 		if (timerCount === 0) {
 			// Clears interval
@@ -183,7 +181,6 @@ function getlosses() {
 startButton.addEventListener('click', startGame);
 
 function checkAnswer(num) {
-	console.log('Chose answer: ' + num);
 	// See if the option user selected is the correct option
 	var curQuestionEl = questions[currentQuestionInd];
 	if (num == curQuestionEl.answer) {
@@ -199,8 +196,8 @@ function checkAnswer(num) {
 		//TODO stringify
 	}
 	//TODO set timer to clear feedback and next question
-	// see if there are anymore questions to ask
-	console.log('feedback: ' + feedbackP.innerHTML);
+	// see if there are any more questions to ask
+
 	// TODO: Don't see last feedback!
 	currentQuestionInd++;
 	if (currentQuestionInd < questions.length) {

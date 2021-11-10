@@ -40,7 +40,7 @@ button {
   cursor: pointer;
   font-size: 2em;
   letter-spacing: 0.21px;
-  line-height: 16px;
+  /* line-height: 16px; */
   max-width: 255px;
   padding: 20px 52px;
   text-align: center;
@@ -88,11 +88,18 @@ section {
   }
 
 .question-answer-feedback {
-  width: 55vw;
+  /* width: 55vw; */
   height: 400px;
-  display:flex;
+  /* display:flex;
   flex-direction: column;
-  flex:1;
+  flex:1; */
+}
+.q-header {
+  display:flex;
+  flex: 0 0 100%;
+  flex-direction: row;
+  justify-content:space-between;
+
 }
 /* When game is over, this container shows up and q-a-f is invisible */
 .game-over-container {
@@ -104,7 +111,7 @@ section {
 }
 #questionP{
   color: var(--verydark);
-  height: 30%;
+  height: 10%;
   font-size:1.50em;
   text-align:left;
 }
@@ -120,7 +127,7 @@ section {
 
 .option-div {
   margin: 0 10% 2% 10%;
-  height: 60%;
+  height: 40%;
 }
 .options {
   color: var(--white);
@@ -157,7 +164,6 @@ section {
 
 .medium-font {
   font-size: 1.5em;
-  color:red;
 }
 .small-font {
   font-size:1.0em;
@@ -165,15 +171,11 @@ section {
 } 
 
 .timer {
-  height: 240px;
-  padding: 10px;
+  height: 30px;
+  padding: 5px;
   background: #13293d;
   color: #fff;
   text-align: center;
-}
-
-.timer-text {
-  padding: 55px;
 }
 
 @media screen and (max-width: 1183px) {
